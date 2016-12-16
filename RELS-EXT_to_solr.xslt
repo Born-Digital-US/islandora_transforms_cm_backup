@@ -117,5 +117,44 @@
           </field>
         </xsl:otherwise>
       </xsl:choose>
+
+        <!--
+        Added 12/16/2016 by Pat Dunlavey, to add collection name to the indexed values
+        see https://ficial.wordpress.com/2014/04/14/islandora-7-solr-faceting-by-collection-name-or-label/
+        -->
+        <xsl:for-each select="$content//rdf:Description/*[@rdf:resource]">
+
+            <xsl:if test="local-name()='isMemberOfCollection'">
+                <xsl:variable name="collectionPID"
+                              select="substring-after(@rdf:resource,'info:fedora/')"/>
+                <xsl:variable name="collectionContent"
+                              select="document(concat($PROT, '://', $FEDORAUSERNAME, ':', $FEDORAPASSWORD, '@', $HOST, ':', $PORT,'/fedora/objects/', $collectionPID, '/datastreams/', 'DC', '/content'))"/>
+
+                <field name="collection_membership.pid_ms">
+                    <xsl:value-of select="$collectionPID"/>
+                </field>
+
+                <xsl:for-each select="$collectionContent//dc:title">
+                    <xsl:if test="local-name()='title'">
+                        <field name="collection_membership.title_ms">
+                            <xsl:value-of select="text()"/>
+                        </field>
+                        <field name="collection_membership.title_mt">
+                            <xsl:value-of select="text()"/>
+                        </field>
+                    </xsl:if>
+                </xsl:for-each>
+
+            </xsl:if>
+            <!--
+                <xsl:if test="local-name()='hasModel'">
+                <xsl:variable name="modelPID" select="substring-after(@rdf:resource,'info:fedora/')"/>
+                <field name="CSW_test_if_model">
+                  <xsl:value-of select="$modelPID"/>
+                </field>
+                </xsl:if>
+            -->
+        </xsl:for-each>
+
     </xsl:template>
 </xsl:stylesheet>
