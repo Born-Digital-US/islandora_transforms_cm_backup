@@ -50,6 +50,9 @@
                         <field name="collection_membership.title_ms">
                             <xsl:value-of select="text()"/>
                         </field>
+                        <field name="collection_membership.title_t">
+                            <xsl:value-of select="text()"/>
+                        </field>
                     </xsl:if>
                 </xsl:for-each>
             </xsl:if>
