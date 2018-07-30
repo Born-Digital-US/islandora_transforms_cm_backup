@@ -48,6 +48,7 @@
                     </xsl:if>
                 </xsl:for-each>
             </xsl:if>
+            <!-- BEGIN TODO: This section causes errors. Testing if we can remove it. PD 2018-07-30
             <xsl:if test="local-name()='hasModel'">
                 <xsl:variable name="cmodelPID"
                               select="substring-after(@rdf:resource,'info:fedora/')"/>
@@ -61,6 +62,7 @@
                     </xsl:if>
                 </xsl:for-each>
             </xsl:if>
+          END TODO -->
         </xsl:for-each>
     <!-- End of BD customization 2018 -->
     </xsl:template>
