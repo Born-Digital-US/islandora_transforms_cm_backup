@@ -42,9 +42,11 @@
                         <field name="collection_membership.title_ms">
                             <xsl:value-of select="text()"/>
                         </field>
+                        <!-- BD Edit - This is a multivalue field. It should not be indexed with _t
                         <field name="collection_membership.title_t">
                             <xsl:value-of select="text()"/>
                         </field>
+                        -->
                     </xsl:if>
                 </xsl:for-each>
             </xsl:if>
